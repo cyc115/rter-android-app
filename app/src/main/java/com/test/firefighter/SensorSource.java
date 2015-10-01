@@ -10,8 +10,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.test.firefighter.R;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.GeomagneticField;
@@ -24,9 +22,11 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
+//import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
+
+//import com.codebutler.android_websockets.WebSocketClient;
 
 public class SensorSource implements SensorEventListener, LocationListener{
 
@@ -44,12 +44,12 @@ public class SensorSource implements SensorEventListener, LocationListener{
 
     private Intent locationIntent;
     private Intent sensorIntent;
-    private LocalBroadcastManager localBroadcastManager;
+//    private LocalBroadcastManager localBroadcastManager;
     private float[] orientationValues = new float[3];
     private float declination = 0;
 
     private boolean get_location_from_server;
-    private WebSocketClient client;
+//    private WebSocketClient client;
     private URI serverURI;
     private String rterCredentials;
     private String username;
@@ -70,7 +70,7 @@ public class SensorSource implements SensorEventListener, LocationListener{
             this.username = username;
             initClient();
             Log.d(TAG, "Connecting to " + serverURI.toString());
-            client.connect();
+//            client.connect();
         } else {
             mLocationManager.requestLocationUpdates(provider, 1000, 0, singleton);
             mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -83,7 +83,7 @@ public class SensorSource implements SensorEventListener, LocationListener{
 
         locationIntent = new Intent (context.getString(R.string.LocationEvent));
         sensorIntent = new Intent (context.getString(R.string.SensorEvent));
-        localBroadcastManager = LocalBroadcastManager.getInstance(context);
+//        localBroadcastManager = LocalBroadcastManager.getInstance(context);
     }
 
     public static SensorSource getInstance(Context context, boolean get_location_from_server, URL baseURL, String rterCredentials, String username){
@@ -165,14 +165,14 @@ public class SensorSource implements SensorEventListener, LocationListener{
      *  Send broadcast for sensor changed
      */
     private void sendSensorBroadcast() {
-        localBroadcastManager.sendBroadcast(sensorIntent);
+//        localBroadcastManager.sendBroadcast(sensorIntent);
     }
 
     /*
      *  Send broadcast for location changed
      */
     private void sendLocationBroadcast(){
-        localBroadcastManager.sendBroadcast(locationIntent);
+//        localBroadcastManager.sendBroadcast(locationIntent);
     }
 
     @Override
@@ -200,50 +200,50 @@ public class SensorSource implements SensorEventListener, LocationListener{
                 new BasicNameValuePair("Cookie", rterCredentials)
         );
 
-        client = new WebSocketClient(serverURI, new WebSocketClient.Listener() {
-            @Override
-            public void onConnect() {
-                Log.d(TAG, "Connected!");
-                //client.send("hello!");
-            }
-
-            @Override
-            public void onMessage(String message) {
-                Log.d(TAG, String.format("Got string message! %s", message));
-                try {
-                    JSONObject event = new JSONObject(message);
-                    String action = event.getString("Action");
-                    JSONObject user = event.getJSONObject("Val");
-                    if(action.equals("update") && user.getString("Username").equals(username)) {
-                        Log.d(TAG, "setting location to " + user.getDouble("Lat") + ", " + user.getDouble("Lng"));
-                        Location userLocation = new Location("rtER Server");
-                        userLocation.setLatitude(user.getDouble("Lat"));
-                        userLocation.setLongitude(user.getDouble("Lng"));
-                        onLocationChanged(userLocation);
-                    }
-                } catch (JSONException e) {
-                    Log.e(TAG, "Malformed JSON received on websocket: " + e.toString());
-                    return;
-                }
-
-            }
-
-            @Override
-            public void onMessage(byte[] data) {
-                Log.d(TAG, String.format("Got binary message! %s", new String(data)));
-            }
-
-            @Override
-            public void onDisconnect(int code, String reason) {
-                Log.d(TAG, String.format("Disconnected! Code: %d Reason: %s", code, reason));
-            }
-
-            @Override
-            public void onError(Exception error) {
-                Log.e(TAG, "Error!", error);
-            }
-
-        }, extraHeaders);
+//        client = new WebSocketClient(serverURI, new WebSocketClient.Listener() {
+//            @Override
+//            public void onConnect() {
+//                Log.d(TAG, "Connected!");
+//                //client.send("hello!");
+//            }
+//
+//            @Override
+//            public void onMessage(String message) {
+//                Log.d(TAG, String.format("Got string message! %s", message));
+//                try {
+//                    JSONObject event = new JSONObject(message);
+//                    String action = event.getString("Action");
+//                    JSONObject user = event.getJSONObject("Val");
+//                    if(action.equals("update") && user.getString("Username").equals(username)) {
+//                        Log.d(TAG, "setting location to " + user.getDouble("Lat") + ", " + user.getDouble("Lng"));
+//                        Location userLocation = new Location("rtER Server");
+//                        userLocation.setLatitude(user.getDouble("Lat"));
+//                        userLocation.setLongitude(user.getDouble("Lng"));
+//                        onLocationChanged(userLocation);
+//                    }
+//                } catch (JSONException e) {
+//                    Log.e(TAG, "Malformed JSON received on websocket: " + e.toString());
+//                    return;
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onMessage(byte[] data) {
+//                Log.d(TAG, String.format("Got binary message! %s", new String(data)));
+//            }
+//
+//            @Override
+//            public void onDisconnect(int code, String reason) {
+//                Log.d(TAG, String.format("Disconnected! Code: %d Reason: %s", code, reason));
+//            }
+//
+//            @Override
+//            public void onError(Exception error) {
+//                Log.e(TAG, "Error!", error);
+//            }
+//
+//        }, extraHeaders);
 
         //client.send(new byte[] { (byte)0xDE, (byte)0xAD, (byte)0xBE, (byte)0xEF });
     }

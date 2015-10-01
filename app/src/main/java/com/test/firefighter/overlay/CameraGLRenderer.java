@@ -5,7 +5,6 @@ import javax.microedition.khronos.opengles.GL10;
 
 import com.test.firefighter.POIList;
 import com.test.firefighter.SensorSource;
-import com.test.firefighter.R;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +15,8 @@ import android.opengl.GLU;
 import android.opengl.GLSurfaceView.Renderer;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+
+import com.test.firefighter.R;
 
 public class CameraGLRenderer implements Renderer {
     private Object lock;
