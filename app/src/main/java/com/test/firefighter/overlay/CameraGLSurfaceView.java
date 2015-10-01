@@ -1,10 +1,11 @@
 package com.test.firefighter.overlay;
 
-import ca.nehil.rter.streamingapp.POIList;
-import ca.nehil.rter.streamingapp.SensorSource;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.opengl.GLSurfaceView;
+
+import com.test.firefighter.POIList;
+import com.test.firefighter.SensorSource;
 
 public class CameraGLSurfaceView extends GLSurfaceView {
     protected CameraGLRenderer camGLRenderer;

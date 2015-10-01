@@ -10,8 +10,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.codebutler.android_websockets.WebSocketClient;
-
 import com.test.firefighter.R;
 import android.app.Activity;
 import android.content.Context;

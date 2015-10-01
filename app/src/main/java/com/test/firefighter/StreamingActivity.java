@@ -75,7 +75,6 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 import com.test.firefighter.overlay.CameraGLSurfaceView;
 import com.test.firefighter.overlay.OverlayController;
-//import com.test.firefighter.R;
 import android.view.OrientationEventListener;
 import static com.googlecode.javacv.cpp.opencv_core.*;
 

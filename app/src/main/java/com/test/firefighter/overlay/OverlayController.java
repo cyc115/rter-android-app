@@ -1,8 +1,9 @@
 package com.test.firefighter.overlay;
 
-import ca.nehil.rter.streamingapp.POIList;
-import ca.nehil.rter.streamingapp.SensorSource;
 import android.content.Context;
+
+import com.test.firefighter.POIList;
+import com.test.firefighter.SensorSource;
 
 /**
  * NORTH: 0 deg
